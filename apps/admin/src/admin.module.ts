@@ -12,11 +12,14 @@ import { DashboardsModule } from './dashboards/dashboards.module';
 @Module({
   imports: [
     // Typegoose 1/3
-    TypegooseModule.forRoot('mongodb://localhost:27017/home', {
+    TypegooseModule.forRoot('mongodb://localhost:27017/', {
       useNewUrlParser: true,
       useCreateIndex: true,
       useUnifiedTopology: true,
       useFindAndModify: false,
+      user: 'root',
+      pass: 'password',
+      dbName: 'home',
     }),
     UsersModule,
     OperationRecordsModule,
