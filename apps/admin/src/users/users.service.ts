@@ -16,22 +16,22 @@ export class UsersService {
   }
 
   findAll() {
-    console.log(`fandall`);
+    // console.log(`fandall`);
     return this.userModel.find().exec();
   }
 
   findOne(_id: string) {
-    console.log(`findone ${_id}`);
+    // console.log(`findone ${_id}`);
     return this.userModel.findById(_id).exec();
   }
 
   update(_id: string, updateUserDto: UpdateUserDto) {
-    console.log(`update ${_id}`);
+    // console.log(`update ${_id}`);
     return this.userModel.findOneAndUpdate({ _id }, updateUserDto).exec();
   }
 
   remove(_id: string) {
-    console.log(`delete ${_id}`);
+    // console.log(`delete ${_id}`);
     return this.userModel.findOneAndDelete({ _id }).exec();
   }
 }

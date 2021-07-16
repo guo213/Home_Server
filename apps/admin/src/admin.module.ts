@@ -11,6 +11,7 @@ import { DashboardsModule } from './dashboards/dashboards.module';
 
 @Module({
   imports: [
+    // Typegoose 1/3
     TypegooseModule.forRoot('mongodb://localhost:27017/home', {
       useNewUrlParser: true,
       useCreateIndex: true,
