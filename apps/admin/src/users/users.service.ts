@@ -11,7 +11,7 @@ export class UsersService {
     @InjectModel(User) private readonly userModel: ReturnModelType<typeof User>,
   ) {}
   async create(createUserDto: CreateUserDto) {
-    console.log(`create ${createUserDto}`);
+    // console.log(`create user:${createUserDto?.username}`);
     return await this.userModel.create(createUserDto);
   }
 
