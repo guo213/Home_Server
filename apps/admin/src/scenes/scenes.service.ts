@@ -1,26 +1,38 @@
 import { Injectable } from '@nestjs/common';
+import { ReturnModelType } from '@typegoose/typegoose';
+import { InjectModel } from 'nestjs-typegoose';
 import { CreateSceneDto } from './dto/create-scene.dto';
 import { UpdateSceneDto } from './dto/update-scene.dto';
+import { Scene } from './entities/scene.entity';
 
 @Injectable()
 export class ScenesService {
-  create(createSceneDto: CreateSceneDto) {
-    return 'This action adds a new scene';
+  constructor(
+    @InjectModel(Scene)
+    private readonly sceneModel: ReturnModelType<typeof Scene>,
+  ) {}
+  async create(createSceneDto: CreateSceneDto) {
+    // console.log(`create Scene:${createSceneDto?.Scenename}`);
+    return await this.sceneModel.create(createSceneDto);
   }
 
   findAll() {
-    return `This action returns all scenes`;
+    // console.log(`fandall`);
+    return this.sceneModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} scene`;
+  findOne(_id: string) {
+    // console.log(`findone ${_id}`);
+    return this.sceneModel.findById(_id).exec();
   }
 
-  update(id: number, updateSceneDto: UpdateSceneDto) {
-    return `This action updates a #${id} scene`;
+  update(_id: string, updateSceneDto: UpdateSceneDto) {
+    // console.log(`update ${_id}`);
+    return this.sceneModel.findOneAndUpdate({ _id }, updateSceneDto).exec();
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} scene`;
+  remove(_id: string) {
+    // console.log(`delete ${_id}`);
+    return this.sceneModel.findOneAndDelete({ _id }).exec();
   }
 }
