@@ -8,18 +8,20 @@ import { DevicesModule } from './devices/devices.module';
 import { RoomsModule } from './rooms/rooms.module';
 import { ScenesModule } from './scenes/scenes.module';
 import { DashboardsModule } from './dashboards/dashboards.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     // Typegoose 1/3
-    TypegooseModule.forRoot('mongodb://localhost:27017/', {
+    TypegooseModule.forRoot(process.env.DB_URL, {
       useNewUrlParser: true,
       useCreateIndex: true,
       useUnifiedTopology: true,
       useFindAndModify: false,
-      user: 'root',
-      pass: 'password',
-      dbName: 'home',
+      user: process.env.DB_USER,
+      pass: process.env.DB_PASS,
+      dbName: process.env.DB_NAME,
     }),
     UsersModule,
     OperationRecordsModule,

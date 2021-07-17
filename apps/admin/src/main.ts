@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AdminModule } from './admin.module';
 
-const PORT = 3001;
+const PORT = process.env.ADMIN_PORT;
 
 async function bootstrap() {
   const app = await NestFactory.create(AdminModule);
