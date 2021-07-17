@@ -1,26 +1,38 @@
 import { Injectable } from '@nestjs/common';
+import { ReturnModelType } from '@typegoose/typegoose';
+import { InjectModel } from 'nestjs-typegoose';
 import { CreateRoomDto } from './dto/create-room.dto';
 import { UpdateRoomDto } from './dto/update-room.dto';
+import { Room } from './entities/room.entity';
 
 @Injectable()
 export class RoomsService {
-  create(createRoomDto: CreateRoomDto) {
-    return 'This action adds a new room';
+  constructor(
+    @InjectModel(Room)
+    private readonly roomModel: ReturnModelType<typeof Room>,
+  ) {}
+  async create(createRoomDto: CreateRoomDto) {
+    // console.log(`create room:${createRoomDto?.roomname}`);
+    return await this.roomModel.create(createRoomDto);
   }
 
   findAll() {
-    return `This action returns all rooms`;
+    // console.log(`fandall`);
+    return this.roomModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} room`;
+  findOne(_id: string) {
+    // console.log(`findone ${_id}`);
+    return this.roomModel.findById(_id).exec();
   }
 
-  update(id: number, updateRoomDto: UpdateRoomDto) {
-    return `This action updates a #${id} room`;
+  update(_id: string, updateRoomDto: UpdateRoomDto) {
+    // console.log(`update ${_id}`);
+    return this.roomModel.findOneAndUpdate({ _id }, updateRoomDto).exec();
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} room`;
+  remove(_id: string) {
+    // console.log(`delete ${_id}`);
+    return this.roomModel.findOneAndDelete({ _id }).exec();
   }
 }
