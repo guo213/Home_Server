@@ -16,7 +16,14 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api-docs', app, document);
 
-  await app.listen(PORT);
-  console.log(`lesten in http://localhost:${PORT}/api-docs`);
+  app.enableCors({
+    origin: '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    preflightContinue: false,
+    allowedHeaders: ['Authorization', 'X-Requested-with', 'withCredentials'],
+    optionsSuccessStatus: 204,
+  });
+  await app.listen(PORT, '127.0.0.1');
+  console.log(`lesten in http://127.0.0.1:${PORT}/api-docs`);
 }
 bootstrap();
