@@ -14,7 +14,6 @@ RUN npm install -g npm@8.1.2 --force
 
 # RUN yrm use edunpm
 
-# test dockerfile
 
 RUN npm i -g yarn --force 
 
